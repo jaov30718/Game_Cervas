@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mestre Cervejeiro: A Saga da Brassagem - Menu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css"> 
+    <style>
+        /* Estilos específicos para o menu, podem ser movidos para style.css depois */
+        body.menu-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0e6d2; /* Mesmo fundo do jogo para consistência */
+            font-family: 'Inter', sans-serif;
+            color: #4a3b31;
+            overflow: hidden;
+        }
+
+        .menu-container {
+            background-color: rgba(212, 200, 184, 0.9); /* Um pouco mais claro que o canvas */
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(74, 59, 49, 0.6);
+            text-align: center;
+            border: 3px solid #8c6a48;
+        }
+
+        .menu-title {
+            font-size: clamp(2em, 8vw, 3.5em);
+            color: #6a4a31;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .menu-subtitle {
+            font-size: clamp(1em, 4vw, 1.5em);
+            color: #7a5c41;
+            margin-bottom: 30px;
+        }
+
+        .menu-button {
+            display: block;
+            width: 100%;
+            max-width: 300px; /* Limita a largura do botão em telas grandes */
+            margin: 15px auto;
+            padding: 15px 20px;
+            font-size: clamp(1.1em, 4vw, 1.4em);
+            color: white;
+            background-color: #8c6a48;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            text-decoration: none; /* Para o caso de usar <a> como botão */
+        }
+
+        .menu-button:hover {
+            background-color: #705030;
+            transform: scale(1.05);
+        }
+
+        .menu-footer {
+            margin-top: 30px;
+            font-size: 0.8em;
+            color: #5a4a41;
+        }
+
+        /* Opcional: Música de fundo para o menu (se desejar) */
+        #menuAudioContainer {
+            display: none;
+        }
+
+    </style>
+</head>
+<body class="menu-body">
+
+    <div id="menuAudioContainer">
+        
+        
+        
+    </div>
+
+    <div class="menu-container">
+        <h1 class="menu-title">Mestre Cervejeiro</h1>
+        <p class="menu-subtitle">A Saga da Brassagem</p>
+
+        <a href="game.html" class="menu-button">Iniciar Nova Brassagem</a>
+        
+        
+
+        <div class="menu-footer">
+            <p>© 2025 Zenginners. Todos os direitos reservados.</p>
+        </div>
+    </div>
+
+    <script>
+        // Script simples para o menu, se necessário (ex: tocar música do menu)
+        // const menuMusic = document.getElementById('menuMusic');
+        // if (menuMusic) {
+        //     // Tentar tocar. Pode falhar devido às políticas de autoplay.
+        //     menuMusic.play().catch(error => {
+        //         console.warn("Música do menu não pôde iniciar automaticamente:", error);
+        //         // Adicionar um listener para tocar após a primeira interação se o autoplay falhar
+        //         document.body.addEventListener('click', () => menuMusic.play(), { once: true });
+        //     });
+        // }
+
+        // function showOptions() {
+        //     alert("Tela de Opções em desenvolvimento!");
+        // }
+        // function showCredits() {
+        //     alert("Tela de Créditos em desenvolvimento!");
+        // }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mestre Cervejeiro: A Saga da Brassagem</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="audioContainer" style="display: none;">
+        
+        <audio id="bgMusic" src="audio/background_theme.mp3" loop preload="auto"></audio>
+        <audio id="bossMusic" src="audio/boss_theme.mp3" loop preload="auto"></audio>
+        <audio id="gameOverMusic" src="audio/game_over_theme.mp3" preload="auto"></audio>
+
+        
+        <audio id="sfxPlayerShoot_1" src="audio/sfx/player_shoot_01.mp3" preload="auto"></audio>
+        <audio id="sfxPlayerShoot_2" src="audio/sfx/player_shoot_02.mp3" preload="auto"></audio>
+        <audio id="sfxPlayerHit_1" src="audio/sfx/player_hit_01.mp3" preload="auto"></audio>
+        <audio id="sfxPlayerHit_2" src="audio/sfx/player_hit_02.mp3" preload="auto"></audio>
+        <audio id="sfxPlayerHeal" src="audio/sfx/player_heal.mp3" preload="auto"></audio>
+
+        
+        <audio id="sfxEnemyHit_1" src="audio/sfx/enemy_hit_01.mp3" preload="auto"></audio>
+        <audio id="sfxEnemyHit_2" src="audio/sfx/enemy_hit_02.mp3" preload="auto"></audio>
+        <audio id="sfxEnemyShoot_1" src="audio/sfx/enemy_shoot_01.mp3" preload="auto"></audio>
+        <audio id="sfxEnemyShoot_2" src="audio/sfx/enemy_shoot_02.mp3" preload="auto"></audio>
+        <audio id="sfxEnemyDeath" src="audio/sfx/enemy_death.mp3" preload="auto"></audio>
+        <audio id="sfxBossHit_1" src="audio/sfx/boss_hit_01.mp3" preload="auto"></audio>
+        <audio id="sfxBossHit_2" src="audio/sfx/boss_hit_02.mp3" preload="auto"></audio>
+        <audio id="sfxBossShoot_1" src="audio/sfx/boss_shoot_01.mp3" preload="auto"></audio>
+        <audio id="sfxBossShoot_2" src="audio/sfx/boss_shoot_02.mp3" preload="auto"></audio>
+        <audio id="sfxBossDeath" src="audio/sfx/boss_death.mp3" preload="auto"></audio>
+        <audio id="sfxBossAbility" src="audio/sfx/boss_ability.mp3" preload="auto"></audio> 
+
+
+        
+        <audio id="sfxXpCollect" src="audio/sfx/xp_collect.mp3" preload="auto"></audio>
+        <audio id="sfxLevelUp" src="audio/sfx/level_up.mp3" preload="auto"></audio>
+        <audio id="sfxQuizCorrect" src="audio/sfx/quiz_correct.mp3" preload="auto"></audio>
+        <audio id="sfxQuizIncorrect" src="audio/sfx/quiz_incorrect.mp3" preload="auto"></audio>
+        <audio id="sfxMarketPurchase" src="audio/sfx/market_purchase.mp3" preload="auto"></audio>
+        <audio id="sfxExplosion_1" src="audio/sfx/explosion_01.mp3" preload="auto"></audio>
+        <audio id="sfxExplosion_2" src="audio/sfx/explosion_02.mp3" preload="auto"></audio>
+        <audio id="sfxButtonClick" src="audio/sfx/button_click.mp3" preload="auto"></audio>
+        <audio id="sfxModalOpen" src="audio/sfx/modal_open.mp3" preload="auto"></audio>
+        <audio id="sfxModalClose" src="audio/sfx/modal_close.mp3" preload="auto"></audio>
+    </div>
+
+    <div id="gameUIContainer" class="game-ui">
+        
+        <div class="ui-element">Vida: <div id="healthBarContainer"><div id="healthBar"></div></div></div>
+        <div class="ui-element">Nível Mestre: <span id="levelDisplay">1</span></div>
+        <div class="ui-element">Round: <span id="roundDisplay">1</span></div>
+        <div class="ui-element">Tempo: <span id="timerDisplay">0s</span></div>
+        <div class="ui-element">XP: <div id="xpBarContainer"><div id="xpBar"></div></div></div>
+        <div class="ui-element">Contaminantes: <span id="enemyCountDisplay">0</span></div>
+    </div>
+
+    <button id="muteButton" title="Ativar/Desativar Som">🔊</button>
+
+    <canvas id="gameCanvas"></canvas>
+
+    
+    <div id="levelUpModal" class="modal" style="display: none;">
+        <h2>Processo Otimizado!</h2>
+        <p>Escolha uma melhoria para sua cervejaria:</p>
+        <div id="upgradeOptionsContainer"></div>
+    </div>
+
+    
+    <div id="quizModal" class="modal" style="display: none;">
+        <h2>Fim do Round! Teste seus Conhecimentos!</h2>
+        <p id="quizActivityText"></p>
+        <div id="quizOptionsContainer">
+            
+        </div>
+        <p id="quizFeedbackText" class="mt-2"></p>
+    </div>
+
+    
+    <div id="marketModal" class="modal" style="display: none;">
+        <h2>Mercado de Insumos e Equipamentos</h2>
+        <p>Gaste seus Pontos de Qualidade (PQ) para melhorar sua produção!</p>
+        <div id="marketItemsContainer">
+            
+        </div>
+        <p>Você tem <span id="qualityPointsDisplay">0</span> PQ.</p>
+        <button class="modal-button" id="closeMarketButton">Fechar Mercado</button>
+    </div>
+
+    
+    <div id="gameOverModal" class="modal" style="display: none;">
+        <h2>Produção Interrompida!</h2>
+        <p>Você sobreviveu por <span id="survivalTimeDisplay">0</span>s e alcançou o round <span id="finalRoundDisplay">1</span>.</p>
+        <p>Nível de Mestre Cervejeiro: <span id="finalLevelDisplay">1</span></p>
+        <button class="modal-button" onclick="game.restartGame()">Tentar Nova Brassagem</button>
+    </div>
+
+    
+    <div id="pauseModal" class="modal" style="display: none;">
+        <h2>Jogo Pausado</h2>
+        <p>Pressione 'P' para continuar a produção</p>
+        <button class="modal-button" onclick="game.togglePause()">Continuar</button>
+    </div>
+
+    <div id="eventNotificationDisplay"><p id="eventNotificationText"></p></div>
+
+    <div id="playerPowersContainer">
+    <div class="power-section">
+        <h4>Técnicas de Mestre</h4>
+        <div class="power-cards-wrapper" id="playerMasterTechniquesCards"></div>
+    </div>
+    <div class="power-section">
+        <h4>Condições Atuais (Buffs/Debuffs)</h4>
+        <div class="power-cards-wrapper" id="playerActiveConditionsCards"></div>
+    </div>
+    <div class="power-section">
+        <h4>Temperos Ativos</h4>
+        <div class="power-cards-wrapper" id="playerActiveSeasoningsCards"></div>
+    </div>
+</div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
