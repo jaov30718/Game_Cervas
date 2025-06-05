@@ -761,18 +761,14 @@ export class GameLogic {
         const duration = 30;
         let finalExplosionDamage = 0; 
 
-        console.log("[CreateExplosion] Called. Radius:", radius, "IsEnemy:", isEnemyExplosion, "Source:", sourceObject);
-
         if (!isEnemyExplosion && sourceObject instanceof this.game.PlayerProjectile) {
             const proj = sourceObject;
-            console.log("[CreateExplosion] Player Projectile. WeaponDmgAtShot:", proj.weaponDamageAtShotTime, "TechBaseDmg:", proj.techniqueExplosionBaseDamage);
             
             
             finalExplosionDamage = proj.weaponDamageAtShotTime + proj.techniqueExplosionBaseDamage;
             
             
             const playerDamageMultiplier = this.game.player.damageOutputMultiplier || 1;
-            console.log("[CreateExplosion] PlayerDamageMultiplier:", playerDamageMultiplier);
             finalExplosionDamage *= playerDamageMultiplier;
             
         } else if (isEnemyExplosion && sourceObject instanceof this.game.EnemyProjectile) {
@@ -792,19 +788,8 @@ export class GameLogic {
         }
         
         finalExplosionDamage = Math.round(finalExplosionDamage);
-        console.log("[CreateExplosion] Final Calculated Explosion Damage:", finalExplosionDamage);
-
-        if (finalExplosionDamage <= 0 && radius <= 0) {
-            console.log("[CreateExplosion] Aborted: No damage and no radius.");
-            return; 
-        }
-        if (radius <=0 && finalExplosionDamage > 0) {
-            console.warn("[CreateExplosion] Explosion has damage but no radius. Will not hit area targets.");
-            
-        }
 
 
-        
         this.game.floatingTexts.push({
             type: 'explosion_effect', 
             x: x,
@@ -850,7 +835,6 @@ export class GameLogic {
         if (finalExplosionDamage > 0 && radius > 0) { 
             if (isEnemyExplosion) {
                 if (distance(x, y, this.game.player.x, this.game.player.y) < radius + this.game.player.size / 2) {
-                    console.log("[CreateExplosion] Enemy explosion hitting player for", finalExplosionDamage);
                     this.game.player.takeDamage(finalExplosionDamage);
                     createFloatingText(`-${finalExplosionDamage}💥`, this.game.player.x, this.game.player.y - 10, '#FF6347', 16, this.game);
                 }
@@ -861,20 +845,13 @@ export class GameLogic {
                     
                     
                     if (distance(x, y, enemy.x, enemy.y) < radius + enemy.size / 2) { 
-                        console.log("[CreateExplosion] Player explosion hitting enemy", enemy.name, "for", finalExplosionDamage);
                         enemy.takeDamage(finalExplosionDamage, null, 'EXPLOSION'); 
                         enemiesHitByExplosion++;
                     }
                 });
-                if (enemiesHitByExplosion > 0) {
-                    console.log("[CreateExplosion] Player explosion hit", enemiesHitByExplosion, "enemies.");
-                } else {
-                    console.log("[CreateExplosion] Player explosion hit NO enemies in range.");
-                }
+                
             }
-        } else if (finalExplosionDamage > 0 && radius <= 0) {
-             console.log("[CreateExplosion] Explosion has damage but no radius, no area damage applied.");
-        }
+        } 
     
         this.game.audioManager.playSFX('explosion');
     }

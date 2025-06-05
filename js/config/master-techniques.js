@@ -16,7 +16,6 @@ export const masterTechniques = [
         const bonusExplosionDamageFromTechnique = Math.round(weapon.baseDamage * 2.35); 
         weapon.techniqueBaseExplosionDamage = (weapon.techniqueBaseExplosionDamage || 0) + bonusExplosionDamageFromTechnique;
         
-        console.log(`[Technique Limpeza Explosiva] Applied. Weapon explosionRadius: ${weapon.explosionRadius}, techniqueBaseExplosionDamage: ${weapon.techniqueBaseExplosionDamage} (added ${bonusExplosionDamageFromTechnique})`);
     }
 },
     { id: "fermentacao_robusta", name: "Fermentação Robusta", description: "Regenera 'vida' ao longo do tempo.", mechanics: "Recupera 0.5 integridade/s.", type: "PLAYER_ABILITY_HEALTH_REGEN", value: 0.5, rarity: "Comum", apply: function(p, pW) { p.healthRegenRate = (p.healthRegenRate || 0) + this.value; } },
