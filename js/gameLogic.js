@@ -761,6 +761,7 @@ export class GameLogic {
         const duration = 30;
         let finalExplosionDamage = 0; 
 
+
         if (!isEnemyExplosion && sourceObject instanceof this.game.PlayerProjectile) {
             const proj = sourceObject;
             
@@ -789,7 +790,10 @@ export class GameLogic {
         
         finalExplosionDamage = Math.round(finalExplosionDamage);
 
+        
 
+
+        
         this.game.floatingTexts.push({
             type: 'explosion_effect', 
             x: x,
@@ -852,7 +856,6 @@ export class GameLogic {
                 
             }
         } 
-    
         this.game.audioManager.playSFX('explosion');
     }
     createVisualPulse(x, y, radius, color, durationFrames) {

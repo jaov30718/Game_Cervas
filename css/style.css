@@ -2,6 +2,12 @@
     --top-ui-height: 60px; 
 }
 
+html {
+    overscroll-behavior: contain; 
+    height: 100%; 
+    overflow: hidden; 
+}
+
 #muteButton {
     position: fixed;
     
@@ -41,13 +47,13 @@ body {
     overflow: hidden; 
     -webkit-tap-highlight-color: transparent;
     box-sizing: border-box;
-    
+    overscroll-behavior: contain; 
 }
 
 body.is-mobile {
-    touch-action: manipulation;
+    touch-action: manipulation; 
     
-    overscroll-behavior-y: contain;
+    overscroll-behavior-y: contain; 
 }
 
 #gameCanvas {
@@ -59,6 +65,7 @@ body.is-mobile {
      
     max-width: 100%; 
     max-height: 100%; 
+    touch-action: none; 
 }
 
 .game-ui {

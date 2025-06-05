@@ -548,8 +548,6 @@ class Game {
 
         
         
-        
-        
         if (dPadActivationAreaTest && this.touchControls.activeTouchId === null) {
             
             this.touchControls.dpadCenterX = touchX;
